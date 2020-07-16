@@ -27,8 +27,17 @@ body {
 }
 
 .blinking {
-  background-color: red !important;
-  transition: opacity 500ms;
+  background-color: green !important;
+  animation: blink 500ms ease-in-out infinite;
+}
+
+@keyframes blink {
+  to {
+    opacity: 0;
+  }
+  from {
+    opacity: 1;
+  }
 }
 
 .playGround {

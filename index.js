@@ -1,5 +1,5 @@
-let population = new Array(1250);
 const noOfDots = 1250;
+let population = new Array(noOfDots);
 const row = 25,
   col = 50;
 var int_id;
@@ -14,30 +14,33 @@ function startGenerations() {
 }
 
 function toggle() {
+  let statusElt = document.getElementById('status');
   if (int_id) {
     clearInterval(int_id);
     int_id = null;
     toggleBtn.innerText = 'Start Iteration';
+    statusElt.classList.remove("blinking");
   } else {
     startGenerations();
     toggleBtn.innerText = 'Stop Iteration';
+    statusElt.classList.add("blinking");
   }
 }
 
 function getNeighbourLifeStatus(i) {
   //To get corner lines dots
   const coordinates = [
-    i - 51,
-    i - 50,
-    i - 49,
+    i - (col + 1),
+    i - col,
+    i - (col - 1),
     i + 1,
-    i + 51,
-    i + 50,
-    i + 49,
+    i + col + 1,
+    i + col,
+    i + col - 1,
     i - 1,
   ];
   return coordinates.map(i =>
-    i < 0 || i > 1249 ? populatePaint[wrapTopBottom(i)] : population[i]
+    i < 0 || i > (noOfDots - 1) ? populatePaint[wrapTopBottom(i)] : population[i]
   );
 }
 
@@ -56,7 +59,7 @@ function wrapTopBottom(i) {
 
 function initialPopulate() {
   for (let i = 0; i < noOfDots; i++) {
-    let isLiving = Math.random() > 0.9;
+    let isLiving = Math.random() > 0.8;
     population[i] = isLiving;
     playGround.appendChild(getDot(i, isLiving));
   }
@@ -75,7 +78,7 @@ function populatePaint() {
     changeDotStatus(i, population[i]);
   }
   const livingCount = population.filter(dot => dot).length;
-  pCount.innerText = `The ${livingCount} living creatures are denoted by colors`;
+  pCount.innerText = `There are ${livingCount} creature${livingCount ? 's' : ''} alive`;
 }
 
 function changeDotStatus(i, isLiving) {
@@ -84,7 +87,7 @@ function changeDotStatus(i, isLiving) {
 }
 
 function getRandomColor() {
-  const c = () => (Math.random() * 200) >> 0;
+  const c = () => (Math.random() * 250) >> 0;
   const colString = [c(), c(), c()]
     .map(col => (col < 16 ? `0${col.toString(16)}` : col.toString(16)))
     .join('');
@@ -94,12 +97,12 @@ function getRandomColor() {
 
 function killAll() {
   toggle();
-  population = new Array(1250).fill(false);
+  population = new Array(noOfDots).fill(false);
   populatePaint();
 }
 
 function generate() {
-  let currentPopulation = new Array(1250).fill(false);
+  let currentPopulation = new Array(noOfDots).fill(false);
   for (let i = 0; i < noOfDots; i++) {
     let noOfLivingNeighbours = getNeighbourLifeStatus(i).filter(idx => idx)
       .length;

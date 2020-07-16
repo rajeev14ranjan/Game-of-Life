@@ -9,11 +9,11 @@
   <body onload="onload()">
     <div class="container center">
       <h1>Simulation of Conway's Game of Life</h1>
-      <span id="status"></span>
+      <span id="status" class="blinking"></span>
       <button id="toggleBtn" onclick="toggle()">Stop Iteration</button>
       <button id="nextBtn" onclick="generate()">Next Generation</button>
       <button id="killBtn" onclick="killAll()">Kill All</button>
-      <p id="pCount">The 0 living creature are denoted by colors</p>
+      <p id="pCount">There are 0 creature alive</p>
       <br />
 
       <div id="playGround" class="playGround gridContainer" onclick="dotClicked(event)"></div>
