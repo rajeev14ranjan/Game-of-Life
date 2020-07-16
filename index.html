@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Way of Life</title>
+    <link rel="stylesheet" type="text/css" href="/style.css" />
+    <script type="text/javascript" src="index.js"></script>
+  </head>
+
+  <body onload="onload()">
+    <div class="container center">
+      <h1>Simulation of Conway's Game of Life</h1>
+      <span id="status"></span>
+      <button id="toggleBtn" onclick="toggle()">Stop Iteration</button>
+      <button id="nextBtn" onclick="generate()">Next Generation</button>
+      <button id="killBtn" onclick="killAll()">Kill All</button>
+      <p id="pCount">The 0 living creature are denoted by colors</p>
+      <br />
+
+      <div id="playGround" class="playGround gridContainer" onclick="dotClicked(event)"></div>
+    </div>
+  </body>
+</html>
